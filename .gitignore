@@ -4,3 +4,4 @@
 **/.terraform.lock.hcl
 ec2_key
 ec2_key.pub
+tfplan.txt
