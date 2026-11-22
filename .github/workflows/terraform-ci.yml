@@ -1,0 +1,41 @@
+name: "Terraform CI Validation"
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  validate:
+    name: "Validate Terraform Modules"
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        dir:
+          - "01_terraform-ec2-webserver"
+          - "02_s3_static_website"
+          - "03_cloudwatch_ec2_alarm"
+          - "04_iam_user_automation"
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.9.0"
+
+      - name: Check Terraform Format
+        run: terraform fmt -check
+        working-directory: ${{ matrix.dir }}
+
+      - name: Initialize Terraform (Backend Disabled)
+        run: terraform init -backend=false
+        working-directory: ${{ matrix.dir }}
+
+      - name: Validate Terraform Syntax
+        run: terraform validate
+        working-directory: ${{ matrix.dir }}
