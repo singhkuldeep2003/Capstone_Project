@@ -43,13 +43,9 @@ jobs:
 
       - name: "Generate Terraform Plan"
         working-directory: ${{ matrix.dir }}
-        env:
-          AWS_ACCESS_KEY_ID: mock_access_key
-          AWS_SECRET_ACCESS_KEY: mock_secret_key
-          AWS_DEFAULT_REGION: ap-south-1
         run: |
-          terraform plan -input=false -no-color -out=tfplan.binary || true
-          terraform show -no-color tfplan.binary > tfplan.txt 2>/dev/null || echo "Terraform plan generated for ${{ matrix.dir }}" > tfplan.txt
+          echo "Generating Terraform plan for module: ${{ matrix.dir }}" > tfplan.txt
+          terraform plan -input=false -no-color >> tfplan.txt 2>&1 || true
 
       - name: "Upload Plan Artifact"
         uses: actions/upload-artifact@v4
