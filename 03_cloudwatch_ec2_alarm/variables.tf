@@ -4,14 +4,8 @@ variable "aws_region" {
   default     = "ap-south-1"
 }
 
-variable "instance_type" {
-  description = "EC2 instance type"
+variable "instance_name" {
+  description = "EC2 Instance Name"
   type        = string
-  default     = "t2.micro"
-}
-
-variable "cpu_threshold" {
-  description = "CPU utilization alarm threshold percentage"
-  type        = number
-  default     = 50
+  default     = "CloudWatch-Monitored-EC2"
 }
