@@ -1,0 +1,74 @@
+{
+  "widgets": [
+    {
+      "type": "metric",
+      "x": 0,
+      "y": 0,
+      "width": 12,
+      "height": 6,
+      "properties": {
+        "metrics": [
+          [ "AWS/EC2", "CPUUtilization", "InstanceId", "i-0b05e677c3bc3192c", { "label": "App Instance 1 CPU" } ],
+          [ "...", "i-0449dbe5a6b329b75", { "label": "App Instance 2 CPU" } ]
+        ],
+        "view": "timeSeries",
+        "stacked": false,
+        "region": "ap-south-1",
+        "title": "EC2 Instances CPU Utilization (%)",
+        "period": 300
+      }
+    },
+    {
+      "type": "metric",
+      "x": 12,
+      "y": 0,
+      "width": 12,
+      "height": 6,
+      "properties": {
+        "metrics": [
+          [ "AWS/ApplicationELB", "RequestCount", "LoadBalancer", "app/project20-alb/62eda61ed04057e7", { "stat": "Sum", "label": "ALB Total Requests" } ]
+        ],
+        "view": "timeSeries",
+        "stacked": false,
+        "region": "ap-south-1",
+        "title": "ALB Traffic (Total Request Count)",
+        "period": 60
+      }
+    },
+    {
+      "type": "metric",
+      "x": 0,
+      "y": 6,
+      "width": 12,
+      "height": 6,
+      "properties": {
+        "metrics": [
+          [ "AWS/ApplicationELB", "TargetResponseTime", "LoadBalancer", "app/project20-alb/62eda61ed04057e7", { "stat": "Average", "label": "Avg Response Time (s)" } ]
+        ],
+        "view": "timeSeries",
+        "stacked": false,
+        "region": "ap-south-1",
+        "title": "Target Response Latency (Seconds)",
+        "period": 60
+      }
+    },
+    {
+      "type": "metric",
+      "x": 12,
+      "y": 6,
+      "width": 12,
+      "height": 6,
+      "properties": {
+        "metrics": [
+          [ "AWS/ApplicationELB", "HealthyHostCount", "TargetGroup", "targetgroup/azltt0222435e27-p20-tg/a6f697ac510a055f", "LoadBalancer", "app/project20-alb/62eda61ed04057e7", { "stat": "Average", "label": "Healthy Hosts" } ],
+          [ ".", "UnHealthyHostCount", ".", ".", ".", ".", { "stat": "Average", "label": "Unhealthy Hosts" } ]
+        ],
+        "view": "timeSeries",
+        "stacked": false,
+        "region": "ap-south-1",
+        "title": "Backend Target Health Summary",
+        "period": 60
+      }
+    }
+  ]
+}
