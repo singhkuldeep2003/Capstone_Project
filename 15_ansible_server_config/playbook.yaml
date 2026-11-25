@@ -1,0 +1,43 @@
+---
+- name: Automate Web Server Configuration
+  hosts: webservers
+  become: true
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+        cache_valid_time: 3600
+
+    - name: Install Nginx Web Server
+      apt:
+        name: nginx
+        state: present
+
+    - name: Deploy custom index.html
+      copy:
+        dest: /var/www/html/index.html
+        content: |
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <title>Capstone Project 15 - Ansible Automation</title>
+            <style>
+              body { font-family: sans-serif; text-align: center; margin-top: 10%; background: #f4f6f8; color: #1f2937; }
+              .card { background: white; padding: 2rem; border-radius: 8px; display: inline-block; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+              h1 { color: #2563eb; }
+            </style>
+          </head>
+          <body>
+            <div class="card">
+              <h1>Automated with Ansible</h1>
+              <p>Project 15: Remote Configuration Automation Complete</p>
+              <p>Host: {{ ansible_hostname }}</p>
+            </div>
+          </body>
+        mode: '0644'
+
+    - name: Ensure Nginx service is running and enabled
+      service:
+        name: nginx
+        state: started
+        enabled: yes
